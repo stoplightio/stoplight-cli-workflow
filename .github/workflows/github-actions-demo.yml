@@ -1,0 +1,34 @@
+name: GitHub Actions Demo
+on:
+  push:
+    branches:    
+      # Push events on main branch
+      - $default-branch
+      # Push events to branches matching refs/heads/mona/octocat
+      - 'design/'
+    paths:
+      - '**.json'
+      - '**.yaml'
+      - '**.md'
+  pullrequest:
+    paths:
+      - '**.json'
+      - '**.yaml'
+      - '**.yml'
+      - '**.md'
+jobs:
+  build:
+    name: Push to Stoplight
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: echo "💡 ${{ github.repository }} - ${{ github.ref }} has been cloned to the runner."
+      - name: Push files to Stoplight
+        run: |
+          npx @stoplight/cli@5 push --ci-token 48d754ec-5f45-42f0-b71d-55bfc635ef70 --directory . --branch ${{ github.ref }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."

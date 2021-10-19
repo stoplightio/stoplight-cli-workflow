@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Push to Stoplight
 on:
   push:
     branches:    
@@ -9,6 +9,7 @@ on:
     paths:
       - '**.json'
       - '**.yaml'
+      - '**.yml'
       - '**.md'
   pull_request:
     paths:

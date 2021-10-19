@@ -10,7 +10,7 @@ on:
       - '**.json'
       - '**.yaml'
       - '**.md'
-  pullrequest:
+  pull_request:
     paths:
       - '**.json'
       - '**.yaml'

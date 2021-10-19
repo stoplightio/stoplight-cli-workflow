@@ -3,9 +3,14 @@ on:
   push:
     branches:    
       # Push events on default branch
-      - $default-branch
+      - main
       # Push events to branches matching refs/heads/mona/octocat
       - 'design/'
+    paths:
+      - '**.json'
+      - '**.yaml'
+      - '**.yml'
+      - '**.md'
   pull_request:
     paths:
       - '**.json'

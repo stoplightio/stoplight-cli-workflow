@@ -2,7 +2,7 @@ name: Push to Stoplight
 on:
   push:
     branches:    
-      # Push events on main branch
+      # Push events on default branch
       - $default-branch
       # Push events to branches matching refs/heads/mona/octocat
       - 'design/'

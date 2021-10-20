@@ -23,6 +23,11 @@ jobs:
   build:
     name: Push to Stoplight
     runs-on: ubuntu-latest
+    env: 
+      # Get the CI token from project settings on your Stoplight workspace
+      PROJECT_TOKEN: {ADD CI Token here}
+      # Get the Project URL from your Stoplight workspace. Don't add a trailing slash.
+      PROJECT_URL: '{ADD Project URL here}'
     steps:
       # Check out the repository
       - name: Check out repository code
@@ -40,14 +45,12 @@ jobs:
           node-version: '14'
       - name: Push files to Stoplight
         run: |
-          npx @stoplight/cli@5 push --ci-token {Add CI token here} --directory ${{ github.workspace }} --branch ${{ env.BRANCH_NAME }}
-      - name: Comment Checkout
+          npx @stoplight/cli@5 push --ci-token ${{env.PROJECT_TOKEN}} --directory ${{ github.workspace }} --branch ${{ env.BRANCH_NAME }}
+      - name: Stoplight PR comment
         if: github.event_name == 'pull_request'
         uses: NejcZdovc/comment-pr@v1
         with:
-          message: "Preview available at " ${{env.PROJECT_URL}}} + "/" ${{ env.BRANCH_NAME }}
+          message: 📚 🔍 API Docs preview available at ${{env.PROJECT_URL}}/branches/${{ env.BRANCH_NAME }}
           identifier: "STOPLIGHT_PREVIEW"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          PROJECT_URL: 'https://nauman-pro.stoplight.io/docs/test12'
-      # To get the CI token go to the project settings page in your Stoplight workspace

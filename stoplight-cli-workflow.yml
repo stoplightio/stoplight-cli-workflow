@@ -41,4 +41,12 @@ jobs:
       - name: Push files to Stoplight
         run: |
           npx @stoplight/cli@5 push --ci-token {Add CI token here} --directory ${{ github.workspace }} --branch ${{ env.BRANCH_NAME }}
+        - name: Comment Checkout
+      - uses: NejcZdovc/comment-pr@v1
+        with:
+          message: "Preview available at " ${{env.PROJECT_URL}}} + "/" ${{ env.BRANCH_NAME }}
+          identifier: "GITHUB_COMMENT_CHECKOUT"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PROJECT_URL: 'https://nauman-pro.stoplight.io/docs/test12'
       # To get the CI token go to the project settings page in your Stoplight workspace

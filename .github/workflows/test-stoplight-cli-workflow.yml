@@ -43,7 +43,7 @@ jobs:
           npx @stoplight/cli@5 push --ci-token ${{env.PROJECT_TOKEN}} --directory ${{ github.workspace }} --branch ${{ env.BRANCH_NAME }}
         env: 
           PROJECT_TOKEN: 48d754ec-5f45-42f0-b71d-55bfc635ef70
-      - name: Comment Checkout
+      - name: Comment Preview
         if: github.event_name == 'pull_request'
         uses: NejcZdovc/comment-pr@v1
         with:

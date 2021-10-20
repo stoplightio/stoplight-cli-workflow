@@ -47,7 +47,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: NejcZdovc/comment-pr@v1
         with:
-          message: Preview available at ${{env.PROJECT_URL}}/${{ env.BRANCH_NAME }}
+          message: Preview available at ${{env.PROJECT_URL}}/branches/${{ env.BRANCH_NAME }}
           identifier: "STOPLIGHT_PREVIEW"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

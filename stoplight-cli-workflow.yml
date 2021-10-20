@@ -41,11 +41,12 @@ jobs:
       - name: Push files to Stoplight
         run: |
           npx @stoplight/cli@5 push --ci-token {Add CI token here} --directory ${{ github.workspace }} --branch ${{ env.BRANCH_NAME }}
-        - name: Comment Checkout
-      - uses: NejcZdovc/comment-pr@v1
+      - name: Comment Checkout
+        if: github.event_name == 'pull_request'
+        uses: NejcZdovc/comment-pr@v1
         with:
           message: "Preview available at " ${{env.PROJECT_URL}}} + "/" ${{ env.BRANCH_NAME }}
-          identifier: "GITHUB_COMMENT_CHECKOUT"
+          identifier: "STOPLIGHT_PREVIEW"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           PROJECT_URL: 'https://nauman-pro.stoplight.io/docs/test12'

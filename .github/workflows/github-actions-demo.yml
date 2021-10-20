@@ -36,8 +36,6 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: echo "💡 ${{ env.BRANCH_NAME }} branch has been cloned to the runner."
       - name: Push files to Stoplight
         run: |
           npx @stoplight/cli@5 push --ci-token 48d754ec-5f45-42f0-b71d-55bfc635ef70 --directory ${{ github.workspace }} --branch ${{ env.BRANCH_NAME }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."

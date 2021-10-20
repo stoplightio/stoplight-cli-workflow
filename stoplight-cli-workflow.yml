@@ -24,7 +24,9 @@ jobs:
     name: Push to Stoplight
     runs-on: ubuntu-latest
     env: 
+      # Get the CI token from project settings on your Stoplight workspace
       PROJECT_TOKEN: {ADD CI Token here}
+      # Get the Project URL from your Stoplight workspace. Don't add a trailing slash.
       PROJECT_URL: '{ADD Project URL here}'
     steps:
       # Check out the repository
@@ -44,7 +46,6 @@ jobs:
       - name: Push files to Stoplight
         run: |
           npx @stoplight/cli@5 push --ci-token ${{env.PROJECT_TOKEN}} --directory ${{ github.workspace }} --branch ${{ env.BRANCH_NAME }}
-        # Get the CI token from project settings on your Stoplight workspace
       - name: Stoplight PR comment
         if: github.event_name == 'pull_request'
         uses: NejcZdovc/comment-pr@v1

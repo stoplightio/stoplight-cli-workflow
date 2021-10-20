@@ -2,5 +2,5 @@
 
 1. Create a `.gitub/workflows` folder in your repository
 2. Copy the `stoplight-cli-workflow.yml` file into the `.gitub/workflows`.
-3. Add your CI token on Line 43
+3. Add your project CI token on Line 43. You can get the CI token from the project settings of a CLI project. 
 4. Create a PR to see it work

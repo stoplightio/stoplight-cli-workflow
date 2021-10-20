@@ -7,11 +7,13 @@ on:
       # Push events to branches matching refs/heads/mona/octocat
       - 'design/'
     paths:
+      # Push events on above branches when files matching the pattern below have changed
       - '**.json'
       - '**.yaml'
       - '**.yml'
       - '**.md'
   pull_request:
+    # Pull request events on all branches when files matching the pattern below have changed
     paths:
       - '**.json'
       - '**.yaml'

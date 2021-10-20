@@ -1,0 +1,44 @@
+name: Push to Stoplight
+on:
+  push:
+    branches:    
+      # Push events on default branch
+      - main
+      # Push events to branches matching refs/heads/mona/octocat
+      - 'design/'
+    paths:
+      # Push events on above branches when files matching the pattern below have changed
+      - '**.json'
+      - '**.yaml'
+      - '**.yml'
+      - '**.md'
+  pull_request:
+    # Pull request events on all branches when files matching the pattern below have changed
+    paths:
+      - '**.json'
+      - '**.yaml'
+      - '**.yml'
+      - '**.md'
+jobs:
+  build:
+    name: Push to Stoplight
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Get branch name (merge)
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Push files to Stoplight
+        run: |
+          npx @stoplight/cli@5 push --ci-token {Add CI token here} --directory ${{ github.workspace }} --branch ${{ env.BRANCH_NAME }}
+      # To get the CI token go to the project settings page in your Stoplight workspace
